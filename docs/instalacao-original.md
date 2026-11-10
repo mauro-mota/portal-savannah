@@ -1,4 +1,8 @@
-# Portal da empresa — roteiro de 20 passos
+# Roteiro original de instalação (histórico)
+
+Este documento registra a preparação inicial do portal para uma VPS nova. Os comandos precisam ser revisados antes de qualquer uso na VPS atual.
+
+Para conhecer o projeto e executar a demonstração local, comece pelo [README principal](../README.md).
 
 Base de código própria em Django, PostgreSQL, Docker Compose e Caddy. Não é Nextcloud e não tem plataforma com cobrança por usuário. Este pacote é um ponto de partida didático e funcional, não um serviço de hospedagem já publicado.
 
