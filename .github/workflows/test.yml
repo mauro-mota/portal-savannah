@@ -1,0 +1,41 @@
+name: Testes do portal
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  django:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.lock.txt
+      - name: Verificar código e aplicação original
+        env:
+          DJANGO_SECRET_KEY: ci-only-disposable-key-never-used-in-production-0123456789
+          TEST_SQLITE: "1"
+        run: |
+          python -m compileall -q config core
+          python manage.py check
+          python manage.py makemigrations --check --dry-run
+          python manage.py test core.tests core.tests_quality
+      - name: Verificar demo isolada
+        env:
+          DJANGO_SECRET_KEY: ci-only-disposable-key-never-used-in-production-0123456789
+          DJANGO_SETTINGS_MODULE: config.demo_settings
+        run: |
+          mkdir -p demo-data
+          python manage.py test core.tests_demo
+
+  postgres:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Testar PostgreSQL e demo em containers isolados
+        run: |
+          export TEST_DB_PASSWORD="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
+          trap 'docker compose -f compose.test.yaml down' EXIT
+          docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from tests

@@ -1,0 +1,24 @@
+# Isolated from portal-producao. Never attach its database or .env.
+name: savannah-portfolio-demo
+services:
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo
+    restart: unless-stopped
+    environment:
+      DJANGO_SECRET_KEY: ${DEMO_SECRET_KEY:?Defina DEMO_SECRET_KEY no ambiente}
+      DJANGO_SETTINGS_MODULE: config.demo_settings
+      PRODUCTION: "0"
+      ALLOWED_HOSTS: localhost,127.0.0.1
+    ports:
+      - "127.0.0.1:8010:8000"
+    volumes:
+      - demo_data:/app/demo-data
+    healthcheck:
+      test: ["CMD", "python", "scripts/healthcheck_demo.py"]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+volumes:
+  demo_data:

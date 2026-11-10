@@ -1,0 +1,1 @@
+{% extends "admin/base.html" %}{% load static %}{% block title %}{{ title }} · Savannah{% endblock %}{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin-savannah.css' %}">{% endblock %}{% block branding %}<div id="site-name"><a href="{% url 'admin:index' %}">savannah.</a><span class="admin-label">ADMINISTRAÇÃO DE PESSOAS</span></div>{% endblock %}
