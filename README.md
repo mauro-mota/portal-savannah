@@ -178,7 +178,7 @@ Esse comando executa os testes da aplicação com PostgreSQL e os da demo com SQ
 - `docs/publicacao.md`: cuidados para uma futura publicação da demo.
 - `SECURITY.md`: orientações de segurança.
 
-Os documentos em `docs/` registram a preparação inicial. Algumas referências à publicação do repositório e à execução do CI ainda precisam ser atualizadas. O `LEIA-ME.md` é um roteiro histórico dos pacotes originais, não uma validação da instalação atual.
+Os documentos em `docs/` registram a preparação inicial. Algumas referências à publicação do repositório e à execução do CI ainda precisam ser atualizadas. O [roteiro original de instalação](docs/instalacao-original.md) foi preservado como referência histórica. Seus comandos precisam ser revisados antes de qualquer uso na VPS atual.
 
 ## Segurança e limites
 
